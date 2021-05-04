@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <script src="../js/main.js"></script>
 </head>
-<body>
+<body onload="onLoad()">
     <div id="chat-iframe" class="col-sm-3 col-sm-offset-4 frame" style="display: none;">
         <ul></ul>
         <div>
@@ -26,9 +26,26 @@
             </div>                
         </div>
     </div>
-    <div class="button-box">
+    <div class="button-box" id="button-box">
         <button class="button-chat" onclick="enablebOrDisabled()"><span class="glyphicon glyphicon-earphone"></span></button>
     </div>
 </body>
 </html>
 <script src="/socket.io/socket.io.js"></script>
+
+<script>
+    function onLoad() {
+        fetch("http://localhost:7777/settings/admin").then((result) =>
+            result.json().then((response) => {
+                buttonChat = document.getElementById("button-box");
+
+                if(!response.chat) {
+                    buttonChat.style.display = "none";
+                }
+
+            })
+
+        )
+    }
+
+</script>
